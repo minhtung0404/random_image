@@ -33,8 +33,6 @@ fs.readFile('index.html', 'utf8', (err, data) => {
     Data = data;
 });
 
-let index = 0;
-
 app.get('/', function(req, res){
     console.log(images.length);
     if (images.length == 0) {
