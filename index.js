@@ -8,7 +8,7 @@ app.use('/', express.static('/'));
 
 let Data, images = [];
 let Path = [
-]; // path to folders containing images
+]; // paths of folders containing images
 
 var walkSync = function(dir, filelist) {
     var fs = fs || require('fs'),
