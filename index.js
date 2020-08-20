@@ -1,14 +1,12 @@
-var http = require('http');
 var fs = require('fs');
 var isImage = require('is-image');
 var express = require('express');
 var app = express();
+var { Path } = require('./config.json');
 
 app.use('/', express.static('/'));
 
 let Data, images = [];
-let Path = [
-]; // paths of folders containing images
 
 var walkSync = function(dir, filelist) {
     var fs = fs || require('fs'),
@@ -19,7 +17,9 @@ var walkSync = function(dir, filelist) {
             walkSync(dir + file + '/', filelist);
         }
         else {
-            if (isImage(file)) filelist.push(dir + file);
+            if (isImage(file)) {
+                filelist.push(dir + file);
+            }
         }
     });
 };
@@ -33,20 +33,28 @@ fs.readFile('index.html', 'utf8', (err, data) => {
     Data = data;
 });
 
+function addZero(index, length){
+    length = length.toString().length;
+    index = index.toString();
+    while (index.length < length){
+        index = '0' + index;
+    }
+    return index;
+}
+
 app.get('/', function(req, res){
-    console.log(images.length);
     if (images.length == 0) {
         res.write("Cannot find any images");
         res.end();
         return;
     }
     let index = Math.floor(Math.random() * images.length);
-    console.log(images[index]);
     image = Data.replace(/\[nani\]/g, images[index]);
     res.write(image);
+    console.log('(' + addZero(index, images.length) + '/' + images.length + ') ' + images[index])
     res.end();
 });
 
-app.listen(8080, function(req, res){
+app.listen(8080, '127.0.0.1', function(req, res){
     console.log("Listen on port 8080");
 });

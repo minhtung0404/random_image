@@ -1,0 +1,25 @@
+{
+  "name": "random_image",
+  "version": "1.0.0",
+  "description": "show random images",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "is-image": "^3.0.0",
+    "nodemon": "^2.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minhtung0404/random_image.git"
+  },
+  "author": "minhtung0404",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/minhtung0404/random_image/issues"
+  },
+  "homepage": "https://github.com/minhtung0404/random_image#readme"
+}

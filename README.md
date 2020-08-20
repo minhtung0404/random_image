@@ -8,7 +8,16 @@ This project is used to show a random image in your chosen folders
 
 ## How to use
 - Clone this repository
-- change the `Path` in the `index.js` file.
-- Run `npm install`
+- Create `config.json` file contains an array PATH contains your paths of your folders.
+Example:
+```json
+{
+    "Path" : [
+        "Path_1",
+        "Path_2"
+    ]
+}
+```
+- Run `npm install` to install all package from `package.json`
 - Run `node index.js`
-- Your image will be showed on port `8080`. Click anywhere to show another random image.
+- Your image will be showed on port `8080`. You can click anywhere to show another random image.
