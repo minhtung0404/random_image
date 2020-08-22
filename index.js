@@ -51,7 +51,7 @@ app.get('/', function(req, res){
     let index = Math.floor(Math.random() * images.length);
     image = Data.replace(/\[nani\]/g, images[index]);
     res.write(image);
-    console.log('(' + addZero(index, images.length) + '/' + images.length + ') ' + images[index])
+    console.log('(' + addZero(index + 1, images.length) + '/' + images.length + ') ' + images[index])
     res.end();
 });
 
