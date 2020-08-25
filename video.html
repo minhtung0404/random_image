@@ -1,0 +1,37 @@
+<html>
+<head>
+    <title> Image showing </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .center-fit {
+            max-width: 100%;
+            max-height: 100vh;
+            margin: auto;
+        }
+        body{
+            min-height: 100%;
+            width: 100%;
+        }
+        html{
+           margin: 0px;
+           height: 100%;
+           width: 100%;
+        }
+    </style>
+    <script>
+        function goto(){
+            location.href = "/"
+        }
+    </script>
+</head>
+<body onclick="goto();" onkeypress="goto();">
+
+    <video src="[nani]" class="center-fit" controls autoplay>
+      <p>Your browser doesn't support HTML5 video. Here is a <a href="rabbit320.webm">link to the video</a> instead.</p>
+    </video>
+
+</body>
+</html>

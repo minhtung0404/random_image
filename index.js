@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path');
 var isImage = require('is-image');
 var express = require('express');
 var app = express();
@@ -6,7 +7,7 @@ var { Path } = require('./config.json');
 
 app.use('/', express.static('/'));
 
-let Data, images = [];
+let imageHTML, videoHTML, images = [];
 
 var walkSync = function(dir, filelist) {
     var fs = fs || require('fs'),
@@ -17,7 +18,7 @@ var walkSync = function(dir, filelist) {
             walkSync(dir + file + '/', filelist);
         }
         else {
-            if (isImage(file)) {
+            if (path.extname(file) === '.mp4'){
                 filelist.push(dir + file);
             }
         }
@@ -28,9 +29,14 @@ Path.forEach(function(path){
     walkSync(path, images);
 });
 
-fs.readFile('index.html', 'utf8', (err, data) => {
+fs.readFile('image.html', 'utf8', (err, data) => {
     if (err) throw err;
-    Data = data;
+    imageHTML = data;
+});
+
+fs.readFile('video.html', 'utf8', (err, data) => {
+    if (err) throw err;
+    videoHTML = data;
 });
 
 function addZero(index, length){
@@ -49,9 +55,16 @@ app.get('/', function(req, res){
         return;
     }
     let index = Math.floor(Math.random() * images.length);
-    image = Data.replace(/\[nani\]/g, images[index]);
-    res.write(image);
-    console.log('(' + addZero(index + 1, images.length) + '/' + images.length + ') ' + images[index])
+    console.log()
+    if (path.extname(images[index]) !== '.mp4'){
+        image = imageHTML.replace(/\[nani\]/g, images[index]);
+        res.write(image);
+    }
+    else{
+        video = videoHTML.replace(/\[nani\]/g, images[index]);
+        res.write(video);
+    }
+    console.log('(' + addZero(index + 1, images.length) + '/' + images.length + ') ' + images[index]);
     res.end();
 });
 
