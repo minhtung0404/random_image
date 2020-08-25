@@ -18,7 +18,7 @@ var walkSync = function(dir, filelist) {
             walkSync(dir + file + '/', filelist);
         }
         else {
-            if (path.extname(file) === '.mp4'){
+            if (isImage(file) || path.extname(file) === '.mp4'){
                 filelist.push(dir + file);
             }
         }
