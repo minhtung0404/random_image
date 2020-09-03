@@ -3,102 +3,26 @@ var path = require('path');
 var isImage = require('is-image');
 var express = require('express');
 var app = express();
+
 var { Path } = require('./config.json');
+var imagejs = require('./routes/image.js');
+var videojs = require('./routes/video.js');
+var mangajs = require('./routes/manga.js');
 
 app.use('/', express.static('/'));
+app.use('/image', imagejs);
+app.use('/video', videojs);
+app.use('/manga', mangajs);
 
-let imageHTML, videoHTML;
-let files = [], images = [], videos = [];
+var html;
 
-var walkSync = function(dir) {
-    var fs = fs || require('fs'),
-        filelist = fs.readdirSync(dir);
-    filelist.forEach(function(file) {
-        if (fs.statSync(dir + file).isDirectory()) {
-            walkSync(dir + file + '/');
-        }
-        else {
-            if (isImage(file) || path.extname(file) === '.mp4'){
-                files.push(dir + file);
-                if (isImage(file)){
-                    images.push(dir + file);
-                }
-                else{
-                    videos.push(dir + file);
-                }
-            }
-        }
-    });
-};
-
-Path.forEach(function(path){
-    walkSync(path);
-});
-
-fs.readFile('image.html', 'utf8', (err, data) => {
+fs.readFile('./html/index.html', 'utf8', (err, data) => {
     if (err) throw err;
-    imageHTML = data;
+    html = data;
 });
-
-fs.readFile('video.html', 'utf8', (err, data) => {
-    if (err) throw err;
-    videoHTML = data;
-});
-
-function addZero(index, length){
-    length = length.toString().length;
-    index = index.toString();
-    while (index.length < length){
-        index = '0' + index;
-    }
-    return index;
-}
 
 app.get('/', function(req, res){
-    if (files.length == 0) {
-        res.write("Cannot find any files");
-        res.end();
-        return;
-    }
-    let index = Math.floor(Math.random() * files.length);
-    console.log()
-    if (path.extname(files[index]) !== '.mp4'){
-        image = imageHTML.replace(/\[nani\]/g, files[index]);
-        res.write(image);
-    }
-    else{
-        video = videoHTML.replace(/\[nani\]/g, files[index]);
-        res.write(video);
-    }
-    console.log('(' + addZero(index + 1, files.length) + '/' + files.length + ') ' + files[index]);
-    res.end();
-});
-
-app.get('/image', function(req, res){
-    if (images.length == 0) {
-        res.write("Cannot find any images");
-        res.end();
-        return;
-    }
-    let index = Math.floor(Math.random() * images.length);
-    console.log()
-    image = imageHTML.replace(/\[nani\]/g, images[index]);
-    res.write(image);
-    console.log('(' + addZero(index + 1, images.length) + '/' + images.length + ') ' + images[index]);
-    res.end();
-});
-
-app.get('/video', function(req, res){
-    if (videos.length == 0) {
-        res.write("Cannot find any videos");
-        res.end();
-        return;
-    }
-    let index = Math.floor(Math.random() * videos.length);
-    console.log()
-    video = videoHTML.replace(/\[nani\]/g, videos[index]);
-    res.write(video);
-    console.log('(' + addZero(index + 1, videos.length) + '/' + videos.length + ') ' + videos[index]);
+    res.send(html);
     res.end();
 });
 
