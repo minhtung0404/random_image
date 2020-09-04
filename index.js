@@ -1,6 +1,4 @@
 var fs = require('fs');
-var path = require('path');
-var isImage = require('is-image');
 var express = require('express');
 var app = express();
 
