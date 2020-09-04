@@ -8,7 +8,7 @@ var addZero = require('../modules/addzero.js');
 
 var { Path } = require('../config.json');
 
-let images = [];
+let images = [], html;
 
 var check = function(dir, file){
     var path = dir + file;
@@ -23,7 +23,7 @@ Path.forEach(function(path){
 
 fs.readFile('./html/image.html', 'utf8', (err, data) => {
     if (err) throw err;
-    imageHTML = data;
+    html = data;
 });
 
 fs.readFile('./html/notfound.html', 'utf8', (err, data) => {
@@ -39,7 +39,7 @@ router.get('/', function(req, res){
     }
     let index = Math.floor(Math.random() * images.length);
     console.log()
-    image = imageHTML.replace(/\[nani\]/g, images[index]);
+    image = html.replace(/\[nani\]/g, images[index]);
     res.write(image);
     console.log('/image (' + addZero(index + 1, images.length) + '/' + images.length + ') ' + images[index]);
     res.end();

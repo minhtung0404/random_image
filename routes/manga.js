@@ -9,7 +9,7 @@ var addZero = require('../modules/addzero.js');
 
 var { Path } = require('../config.json');
 
-let files = [];
+let files = [], html;
 
 let page = '<img src="[nani]" class = "center-fit" /><br>\n'
 
