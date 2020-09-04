@@ -1,7 +1,7 @@
 # Random image
 
 ## Description
-This project is used to show a random image in your chosen folders
+This project is used to show a random image, video or manga in your chosen folders.
 
 ## Requirement
 - Node.js
@@ -20,4 +20,10 @@ Example:
 ```
 - Run `npm install` to install all package from `package.json`
 - Run `node index.js`
-- Your image will be showed on port `8080`. You can click anywhere to show another random image.
+- Your image will be showed on port `8080`.
+- You can choose to show images, videos or mangas.
+- You can click anywhere to show another random image.
+
+## Note
+
+- You need to put your manga in a folder with prefix `manga` and the manga pages must be sort alphabetically.
