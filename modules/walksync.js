@@ -8,7 +8,7 @@ var walkSync = function(dir, files, check) {
     files = files || [];
 
     filelist.forEach(function(file) {
-        if (fs.statSync(dir + file).isDirectory()) {
+        if (fs.statSync(dir + file).isDirectory() && !file.startsWith('manga')) {
             walkSync(dir + file + '/', files, check);
         }
         if (check(dir, file)) files.push(dir + file);
