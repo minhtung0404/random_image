@@ -7,7 +7,7 @@ var router = express.Router();
 var walkSync = require('../modules/walksync.js');
 var addZero = require('../modules/addzero.js');
 
-var { Path } = require('../config.json');
+var { Path, tmp } = require('../config.json');
 
 let images = [], html;
 
@@ -41,9 +41,19 @@ router.get('/', function(req, res){
     let index = Math.floor(Math.random() * images.length);
     console.log()
     image = html.replace(/\[nani\]/g, images[index]);
+    image = image.replace(/\[nani2\]/g, index);
     res.write(image);
     console.log('/image (' + addZero(index + 1, images.length) + '/' + images.length + ') ' + images[index]);
     res.end();
 });
+
+router.post('/move/:Id', function(req, res){
+    fs.rename(images[req.params.Id], tmp + '/' + path.basename(images[req.params.Id]), function (err) {
+        if (err) throw err;
+        console.log('Successfully renamed - AKA moved!');
+        delete images[req.params.Id];
+    });
+    res.redirect('..');
+})
 
 module.exports = router;
