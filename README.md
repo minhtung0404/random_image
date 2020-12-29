@@ -32,4 +32,4 @@ Example:
 ## Note
 
 - You need to put your manga in a folder with prefix `manga` and the manga pages must be sort alphabetically.
-- Add removed folder to eliminate images that you don't want to show in image but you don't want to delete it.
+- Add removed folder to eliminate images that you don't want to show in image but you don't want to delete it (in image click `Submit` button to move to `tmp` folder).
